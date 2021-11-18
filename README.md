@@ -1,7 +1,7 @@
 # DSProject
 DS Project
 
-#Autores
+# Autores
 Enmanuel Diaz Almeida
 <br>
 Daniel Mares Esparza
