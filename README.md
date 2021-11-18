@@ -1,5 +1,5 @@
 # DSProject
-DS Project
+Red Social sobre Eventos Sociales
 
 # Autores
 Enmanuel Diaz Almeida
