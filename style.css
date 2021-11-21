@@ -1,0 +1,30 @@
+footer {
+  text-align: center;
+  height: 200px;
+  padding: 3px;
+  background-color: rgb(52, 13, 95);
+  color: white;
+}
+a{
+    color: white;
+}
+
+.contenedorEvento{
+  background-color:khaki;
+  width: 100%;
+  padding: 20px;
+  height: 400px;
+  text-align: center;
+}
+.evento{
+  font-size: x-large;
+  padding: 10px;
+  margin: 5px;
+  text-align: center;
+  background-color: beige;
+  width: 45%;
+  height: 75px;
+}
+#canvas{
+  width: 100%;
+}
