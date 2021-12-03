@@ -7,7 +7,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="logo.png">
-    <title>Incio Sesión</title></head>
+    <title>Registro</title></head>
 <body>
     <nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
         <div class="container">
@@ -39,24 +39,39 @@
         </div>
     </nav>
     <br>
-    <h1 style="text-align: center;">¡Inicie Sesión Aquí!</h1>
+    <h1 style="text-align: center;">¡Registrese Aquí!</h1>
     <br>
     <div style="margin-left: auto;margin-right: auto;" class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
     <form>
         <div class="form-outline mb-4"> 
-	        <label class="form-label" for="email">Email address</label>
-            <input name="email" type="email" id="email" class="form-control form-control-lg" placeholder="Email address"/>
+	    <label class="form-label" for="nombre">Nombre</label>
+            <input name="nombre" type="text" id="nombre" class="form-control form-control-lg" placeholder="Nombre"/>
+        </div>
+        <div class="form-outline mb-4"> 
+	    <label class="form-label" for="apellidos">Apellidos</label>
+            <input name="apellidos" type="text" id="apellidos" class="form-control form-control-lg" placeholder="Apellidos"/>
         </div>
         <div class="form-outline mb-4">
-	        <label class="form-label" for="password">Password</label>
-            <input name="password" type="password" id="password" class="form-control form-control-lg" placeholder="Password" />       
+	    <label class="form-label" for="password">Fecha de Nacimiento</label>
+	    <input class="form-control" type="date" id="fechaNac" name="fechaNac">
+        </div>
+	<div class="form-outline mb-4"> 
+	    <label class="form-label" for="correo">Correo</label>
+            <input name="correo" type="email" id="email" class="form-control form-control-lg" placeholder="Correo"/>
+        </div>
+        <div class="form-outline mb-4">
+	    <label class="form-label" for="password">Contraseña</label>
+            <input name="password" type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" />       
+        </div>
+	<div class="form-outline mb-4">
+	    <label class="form-label" for="password">Confirmar Contraseña</label>
+            <input name="password" type="password" id="confirmar-password" class="form-control form-control-lg" placeholder="Confirmar Contraseña" />       
         </div>
 	<p style="text-align: center;">
-	    <button type="submit" class="btn btn-primary btn-lg btn-block">Sign in</button>
+	    <button id="boton" type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
 	</p>
         
     </form>
-    <p style="text-align: center;">¿No estás registrado?<br>¡Haz click <a class="link-primary" href="Registro.html">aquí</a>!</p><br>
     </div>
     <br><br>
     <footer class="footer">       
@@ -68,5 +83,21 @@
     <!--Bootstrap y jQuery JS-->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="js/bootstrap.bundle.min.js"></script>
+    <script>
+	    document.getElementById("boton").addEventListener("click",()=>{
+		let nombre =document.getElementById("nombre");
+		let apellidos =document.getElementById("apellidos");
+		let fecNac =document.getElementById("fechaNac");
+		let email =document.getElementById("email");
+		let p1 = document.getElementById("password");
+		let p2 = document.getElementById("confirmar-password");
+		let condicion = (!nombre.value || !apellidos.value || !fecNac.value || !email.value || !p1.value || !p2.value);
+		if(condicion){
+			window.alert("Hay campos vacios");
+		}else if(p1.value != p2.value){
+			window.alert("Las contraseñas no coinciden");
+		}
+	    });
+    </script>
 </body>
 </html>
