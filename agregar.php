@@ -1,5 +1,15 @@
+<?php
+    session_start();
+	if(!isset($_SESSION["id"])){
+        header('Location: login.php');
+    }
+    $nombre = $_SESSION["nombre"];
+    $id = $_SESSION["id"];
+    require ('connection.php');
+?>
+
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -11,28 +21,28 @@
 <body>
     <nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
         <div class="container">
-            <a class="navbar-brand" href="index.html"> 
+            <a class="navbar-brand" href="index.php"> 
                 <img src="logo.png" alt="Logo" srcset=""> 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Inicio</a>
+                        <a class="nav-link" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="agregar.html">Agregar Fiesta</a>
+                        <a class="nav-link" href="agregar.php">Agregar Fiesta</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="buscar.html">Buscar Fiesta</a>
+                        <a class="nav-link" href="buscar.php">Buscar Fiesta</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="registro.html">Registrarse</a>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
+                        </div>
                     </li>
                 </ul>
             </div>

@@ -1,3 +1,27 @@
+<?php
+    session_start();
+	if(isset($_SESSION["id"])){
+        header('Location: index.php');
+    }
+    require ('connection.php');
+    if(isset($_POST["nombre"])){
+       $nombre = $_POST["nombre"];
+       $apellidos = $_POST["apellidos"];
+       $fechaNacimiento = $_POST["fechaNac"];
+       $correo = $_POST["correo"];
+       $pass = md5($_POST["password"]);
+       $query = "INSERT INTO usuarios(nombre,apellidos,fecha_nacimiento,correo,contrasena) VALUES ('$nombre','$apellidos','$fechaNacimiento','$correo','$pass')"; 
+       $connection=connect();
+       $result=$connection->query($query);
+       if($result){
+	    disconnect($connection);
+        echo '<script>window.alert("Usuario Registrado Correctamente");window.location.href = "index.php";</script>';
+       } else {
+        disconnect($connection);
+        echo '<script>window.alert("Usuario No Registrado Correctamente");window.location.href = "index.php";</script>';
+       }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,28 +35,22 @@
 <body>
     <nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
         <div class="container">
-            <a class="navbar-brand" href="index.html"> 
+            <a class="navbar-brand" href="index.php"> 
                 <img src="logo.png" alt="Logo" srcset=""> 
             </a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarResponsive">
-                <ul class="navbar-nav ml-auto">
+                <ul class="navbar-nav ms-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="index.html">Inicio</a>
+                        <a class="nav-link" href="index.php">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="agregar.html">Agregar Fiesta</a>
+                        <a class="nav-link" href="login.php">Iniciar Sesión</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="buscar.html">Buscar Fiesta</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="login.html">Iniciar Sesión</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="registro.html">Registrarse</a>
+                        <a class="nav-link" href="registro.php">Registrarse</a>
                     </li>
                 </ul>
             </div>
@@ -42,35 +60,34 @@
     <h1 style="text-align: center;">¡Registrese Aquí!</h1>
     <br>
     <div style="margin-left: auto;margin-right: auto;" class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-    <form>
+    <form method="POST" action="">
         <div class="form-outline mb-4"> 
-	    <label class="form-label" for="nombre">Nombre</label>
+	        <label class="form-label" for="nombre">Nombre</label>
             <input name="nombre" type="text" id="nombre" class="form-control form-control-lg" placeholder="Nombre"/>
         </div>
         <div class="form-outline mb-4"> 
-	    <label class="form-label" for="apellidos">Apellidos</label>
+	        <label class="form-label" for="apellidos">Apellidos</label>
             <input name="apellidos" type="text" id="apellidos" class="form-control form-control-lg" placeholder="Apellidos"/>
         </div>
         <div class="form-outline mb-4">
-	    <label class="form-label" for="password">Fecha de Nacimiento</label>
-	    <input class="form-control" type="date" id="fechaNac" name="fechaNac">
+	        <label class="form-label" for="password">Fecha de Nacimiento</label>
+	        <input class="form-control" type="date" id="fechaNac" name="fechaNac">
         </div>
-	<div class="form-outline mb-4"> 
-	    <label class="form-label" for="correo">Correo</label>
+	    <div class="form-outline mb-4"> 
+	        <label class="form-label" for="correo">Correo</label>
             <input name="correo" type="email" id="email" class="form-control form-control-lg" placeholder="Correo"/>
         </div>
         <div class="form-outline mb-4">
-	    <label class="form-label" for="password">Contraseña</label>
+	        <label class="form-label" for="password">Contraseña</label>
             <input name="password" type="password" id="password" class="form-control form-control-lg" placeholder="Contraseña" />       
         </div>
-	<div class="form-outline mb-4">
-	    <label class="form-label" for="password">Confirmar Contraseña</label>
+	    <div class="form-outline mb-4">
+	        <label class="form-label" for="password">Confirmar Contraseña</label>
             <input name="password" type="password" id="confirmar-password" class="form-control form-control-lg" placeholder="Confirmar Contraseña" />       
         </div>
-	<p style="text-align: center;">
-	    <button id="boton" type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
-	</p>
-        
+	    <p style="text-align: center;">
+	        <button id="boton" type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+	    </p>       
     </form>
     </div>
     <br><br>
