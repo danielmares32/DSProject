@@ -68,7 +68,7 @@
             </tr>
             <tr>
                 <td>Hashtag</td>
-                <td><input class="form-control" type="text" id="hashtagEvento" name="hashtagEvento" placeholder="Hashtag del Evento"></td>
+                <td><input readonly class="form-control" type="text" id="hashtagEvento" name="hashtagEvento" placeholder="Hashtag del Evento"></td>
             </tr>
             <tr>
                 <td>Locación</td>
@@ -102,6 +102,10 @@
         let map;
         let infowindow;
         let service;
+
+        document.getElementById("nombreEvento").addEventListener("keyup",()=>{
+            document.getElementById("hashtagEvento").value="#CompartiendoLaFiesta"+document.getElementById("nombreEvento").value.replaceAll(/\s/g,'');
+        });
 
         document.getElementById("btn").addEventListener("click",()=>{
             lugar = document.getElementById("search").value;
