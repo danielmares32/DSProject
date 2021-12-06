@@ -72,8 +72,14 @@
             </tr>
             <tr>
                 <td>Locación</td>
-                <td><input type="text" class="form-control" id="search" placeholder="Escribe la direccion del evento"></td>
+                <td><input type="text" class="form-control" id="search" name="locacion" placeholder="Escribe la direccion del evento"></td>
             </tr>
+            <tr>
+                <td>Descripcion</td>
+                <td><textarea style="height:150px" rows="3" name="descripcion" type="text" class="form-control input-lg" id="descripcion" placeholder="Escribe informacion del evento"></textarea></td>
+            </tr>
+
+
         </table>
         <div style="text-align: center;">
             <button class="btn btn-primary" type="button" id="btn">Actualizar Mapa</button>
