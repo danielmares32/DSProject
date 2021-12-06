@@ -64,9 +64,9 @@
     <br>
     <h1 style="text-align: center;">Compartir tus Fiestas con el Mundo</h1>
     <br>
-    <h5 style="text-align: center;">Comparte la Fiesta es una red social para eventos sociales.</h5>
-    <h5 style="text-align: center;">Logramos que organizar eventos sea tarea fácil, </h5> 
-    <h5 style="text-align: center;">ayudamos a tener toda la fiesta en un solo espacio,</h5> 
+    <h5 style="text-align: center;">Comparte La Fiesta es una red social para eventos sociales.</h5>
+    <h5 style="text-align: center;">Logramos que organizar eventos sea una tarea fácil, </h5> 
+    <h5 style="text-align: center;">ayudamos a tener toda la información de la fiesta en un solo espacio,</h5> 
     <h5 style="text-align: center;">permitiendo compartir experiencias, videos y fotos,</h5>
     <h5 style="text-align: center;">confirmar invitados, y mucho más.</h5>
     <br>

@@ -67,6 +67,10 @@
                 <td><input class="form-control" type="time" id="horaEvento" name="horaEvento"></td>
             </tr>
             <tr>
+                <td>Hashtag</td>
+                <td><input class="form-control" type="text" id="hashtagEvento" name="hashtagEvento" placeholder="Hashtag del Evento"></td>
+            </tr>
+            <tr>
                 <td>Locación</td>
                 <td><input type="text" class="form-control" id="search" placeholder="Escribe la direccion del evento"></td>
             </tr>
