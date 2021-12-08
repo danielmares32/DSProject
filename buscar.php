@@ -7,7 +7,7 @@
     $id = $_SESSION["id"];
     require ('connection.php');
     $connection=connect();
-    $query = "SELECT * FROM evento;";
+    $query = "SELECT * FROM evento ORDER BY id_evento DESC;";
     $result = $connection->query($query);
     $array = array();
     while($row = $result->fetch_assoc()){
