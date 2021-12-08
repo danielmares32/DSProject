@@ -108,7 +108,7 @@
 		let email =document.getElementById("email");
 		let p1 = document.getElementById("password");
 		let p2 = document.getElementById("confirmar-password");
-		let condicion = (!nombre.value || !apellidos.value || !fecNac.value || !email.value || !p1.value || !p2.value);
+		let condicion = !(nombre.value.length > 0 || apellidos.value.length > 0 || fecNac.value.length > 0 || email.value.length > 0 || p1.value.length > 0 || p2.value.length > 0);
 		if(condicion){
 			window.alert("Hay campos vacios");
 		}else if(p1.value != p2.value){

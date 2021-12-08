@@ -6,6 +6,24 @@
     $nombre = $_SESSION["nombre"];
     $id = $_SESSION["id"];
     require ('connection.php');
+    if(isset($_POST["nombreEvento"])){
+        $nombre = $_POST["nombreEvento"];
+        $fecha = $_POST["fechaEvento"]." ".$_POST["horaEvento"];
+        $hashtag = $_POST["hashtagEvento"];
+        $descripcion = $_POST["descripcion"];
+        $locacion = $_POST["locacion"];
+        $ubicacion = "/".$id."/".$nombre."/".$fecha;
+        $connection=connect();
+        $query = "INSERT INTO evento(nombre,fecha,hashtag,descripcion,lugar,ubicacion_Media) VALUES('$nombre','$fecha','$hashtag','$descripcion','$locacion','$ubicacion');";
+        $result=$connection->query($query);
+        if($result){
+            disconnect($connection);
+            echo '<script>window.alert("Evento Registrado Correctamente");window.location.href = "index.php";</script>';
+        } else {
+            disconnect($connection);
+            echo '<script>window.alert("Evento No Registrado Correctamente");window.location.href = "index.php";</script>';
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -41,6 +59,8 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <a href="" class="dropdown-item">Ver Mis Eventos</a>
+                            <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
                             <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
                     </li>
@@ -53,6 +73,7 @@
     <h1 style="text-align: center;">¡Puedes agregar tu evento aquí!</h1>
     <br>
     <div class="table-responsive">
+        <form id="myForm" method="POST" action="">
         <table class="table table-responsive table-striped p-3">
             <tr>
                 <td>Nombre del Evento</td>
@@ -71,23 +92,23 @@
                 <td><input readonly class="form-control" type="text" id="hashtagEvento" name="hashtagEvento" placeholder="Hashtag del Evento"></td>
             </tr>
             <tr>
-                <td>Locación</td>
-                <td><input type="text" class="form-control" id="search" name="locacion" placeholder="Escribe la direccion del evento"></td>
-            </tr>
-            <tr>
                 <td>Descripcion</td>
                 <td><textarea style="height:150px" rows="3" name="descripcion" type="text" class="form-control input-lg" id="descripcion" placeholder="Escribe informacion del evento"></textarea></td>
             </tr>
-
-
+            <tr>
+                <td>Locación</td>
+                <td><input type="text" class="form-control" id="search" name="locacion" placeholder="Escribe la direccion del evento"></td>
+            </tr>
         </table>
         <div style="text-align: center;">
-            <button class="btn btn-primary" type="button" id="btn">Actualizar Mapa</button>
+            <button class="btn btn-danger" type="button" id="btn">Actualizar Mapa</button>
             <br><br>
             <h3>Mapa</h3>
             <div id="map" style="margin-left: auto;margin-right: auto;height: 450px;width: 1250px;"></div>
+            <br><br>
+            <button class="btn btn-primary" type="button" id="btnSubmit">Registrar Evento</button>
         </div>
-        
+        </form>
     </div>
     <br><br>
     <footer class="footer">       
@@ -108,6 +129,21 @@
         let map;
         let infowindow;
         let service;
+
+        document.getElementById("btnSubmit").addEventListener("click",()=>{
+            let nombre = document.getElementById("nombreEvento").value;
+            let fecha = document.getElementById("fechaEvento").value;
+            let hora = document.getElementById("horaEvento").value;
+            let hashtag = document.getElementById("hashtagEvento").value;
+            let descripcion = document.getElementById("descripcion").value;
+            let locacion = document.getElementById("search").value;
+            let condicion = !(nombre.lenght > 0 || fecha > 0 || hora > 0 || hashtag > 0 || descripcion > 0 || locacion > 0);
+            if(condicion){
+                window.alert("Hay campos vacios");
+            } else {
+                document.getElementById("myForm").submit();
+            }
+        });
 
         document.getElementById("nombreEvento").addEventListener("keyup",()=>{
             document.getElementById("hashtagEvento").value="#CompartiendoLaFiesta"+document.getElementById("nombreEvento").value.replaceAll(/\s/g,'');
