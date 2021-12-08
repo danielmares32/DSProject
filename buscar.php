@@ -6,6 +6,13 @@
     $nombre = $_SESSION["nombre"];
     $id = $_SESSION["id"];
     require ('connection.php');
+    $connection=connect();
+    $query = "SELECT * FROM evento;";
+    $result = $connection->query($query);
+    $array = array();
+    while($row = $result->fetch_assoc()){
+	$array[] = $row;
+    }
 
 ?>
 <!DOCTYPE html>
@@ -55,7 +62,26 @@
     <h1 style="text-align: center;">¡Puedes buscar un evento aquí!</h1>
     <br>
     <h3 style="text-align: center;">Últimos Eventos</h3>
-    <div class="card-group">
+    <?php
+        echo '<div class="card-group">';
+        for($i=0;$i<count($array);$i++){	
+	    if($i % 3 == 0 && $i != 1){
+		echo '</div>';
+		echo '<div class="card-group">';    
+	    }
+	    echo '<div class="card m-4 p-3 text-center text-white rounded" style="width: 18rem;background-color:#3D59AB;">
+		<img class="card-img-top" src="cumpleaños3.jpg" alt="Card image cap">
+		<div class="card-body">
+			<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
+			<p class="card-text">'.$array[$i]['descripcion'].'</p>
+			<a href="#" class="btn btn-primary">Ver Evento</a>
+		</div>
+	        </div>';    
+	    
+	}
+	echo '</div>';
+    ?>
+    <!--<div class="card-group">
 	<div class="card m-4 p-3 text-center text-white rounded" style="width: 18rem;background-color:#3D59AB;">
 		<img class="card-img-top" src="boda.jpg" alt="Card image cap">
 		<div class="card-body">
@@ -98,7 +124,7 @@
 		<a href="#" class="btn btn-primary">Ver Evento</a>
 		</div>
 	</div>
-    </div>
+    </div>-->
     <br>
     <footer class="footer">       
         <br><br> 

@@ -12,7 +12,7 @@
         $hashtag = $_POST["hashtagEvento"];
         $descripcion = $_POST["descripcion"];
         $locacion = $_POST["locacion"];
-        $ubicacion = "/".$id."/".$nombre."/".$fecha;
+        $ubicacion = "/".$id."/".$nombre."/".$_POST["fechaEvento"];
         $connection=connect();
         $query = "INSERT INTO evento(nombre,fecha,hashtag,descripcion,lugar,ubicacion_Media) VALUES('$nombre','$fecha','$hashtag','$descripcion','$locacion','$ubicacion');";
         $result=$connection->query($query);
@@ -72,7 +72,7 @@
     <br>
     <h1 style="text-align: center;">¡Puedes agregar tu evento aquí!</h1>
     <br>
-    <div class="table-responsive">
+    <div class="table-responsive container">
         <form id="myForm" method="POST" action="">
         <table class="table table-responsive table-striped p-3">
             <tr>
@@ -103,10 +103,14 @@
         <div style="text-align: center;">
             <button class="btn btn-danger" type="button" id="btn">Actualizar Mapa</button>
             <br><br>
-            <h3>Mapa</h3>
-            <div id="map" style="margin-left: auto;margin-right: auto;height: 450px;width: 1250px;"></div>
-            <br><br>
             <button class="btn btn-primary" type="button" id="btnSubmit">Registrar Evento</button>
+            <br><br>
+            <h3>Mapa</h3>
+            <div class="container">
+                <div id="map" style="margin-left: auto;margin-right: auto;height: 450px;width: 100%;"></div>
+            </div>
+            <br><br>
+            
         </div>
         </form>
     </div>
@@ -137,7 +141,7 @@
             let hashtag = document.getElementById("hashtagEvento").value;
             let descripcion = document.getElementById("descripcion").value;
             let locacion = document.getElementById("search").value;
-            let condicion = !(nombre.lenght > 0 || fecha > 0 || hora > 0 || hashtag > 0 || descripcion > 0 || locacion > 0);
+            let condicion = (nombre.lenght > 0 || fecha > 0 || hora > 0 || hashtag > 0 || descripcion > 0 || locacion > 0);
             if(condicion){
                 window.alert("Hay campos vacios");
             } else {
