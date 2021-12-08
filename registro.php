@@ -60,7 +60,7 @@
     <h1 style="text-align: center;">¡Registrese Aquí!</h1>
     <br>
     <div style="margin-left: auto;margin-right: auto;" class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
-    <form method="POST" action="">
+    <form id="myForm" method="POST" action="">
         <div class="form-outline mb-4"> 
 	        <label class="form-label" for="nombre">Nombre</label>
             <input name="nombre" type="text" id="nombre" class="form-control form-control-lg" placeholder="Nombre"/>
@@ -86,7 +86,7 @@
             <input name="password" type="password" id="confirmar-password" class="form-control form-control-lg" placeholder="Confirmar Contraseña" />       
         </div>
 	    <p style="text-align: center;">
-	        <button id="boton" type="submit" class="btn btn-primary btn-lg btn-block">Sign up</button>
+	        <button id="boton" type="button" class="btn btn-primary btn-lg btn-block">Sign up</button>
 	    </p>       
     </form>
     </div>
@@ -108,12 +108,14 @@
 		let email =document.getElementById("email");
 		let p1 = document.getElementById("password");
 		let p2 = document.getElementById("confirmar-password");
-		let condicion = !(nombre.value.length > 0 || apellidos.value.length > 0 || fecNac.value.length > 0 || email.value.length > 0 || p1.value.length > 0 || p2.value.length > 0);
+		let condicion = !(nombre.value.length > 0 && apellidos.value.length > 0 && fecNac.value.length > 0 && email.value.length > 0 && p1.value.length > 0 && p2.value.length > 0);
 		if(condicion){
 			window.alert("Hay campos vacios");
 		}else if(p1.value != p2.value){
 			window.alert("Las contraseñas no coinciden");
-		}
+		} else {
+            document.getElementById("myForm").submit();
+        }
 	    });
     </script>
 </body>

@@ -141,7 +141,7 @@
             let hashtag = document.getElementById("hashtagEvento").value;
             let descripcion = document.getElementById("descripcion").value;
             let locacion = document.getElementById("search").value;
-            let condicion = (nombre.lenght > 0 || fecha > 0 || hora > 0 || hashtag > 0 || descripcion > 0 || locacion > 0);
+            let condicion = !(nombre.lenght > 0 && fecha > 0 && hora > 0 && hashtag > 0 && descripcion > 0 && locacion > 0);
             if(condicion){
                 window.alert("Hay campos vacios");
             } else {
