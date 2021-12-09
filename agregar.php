@@ -150,7 +150,7 @@
         });
 
         document.getElementById("nombreEvento").addEventListener("keyup",()=>{
-            document.getElementById("hashtagEvento").value="#CompartiendoLaFiesta"+document.getElementById("nombreEvento").value.replaceAll(/\s/g,'');
+            document.getElementById("hashtagEvento").value="#CLF"+document.getElementById("nombreEvento").value.replaceAll(/\s/g,'');
         });
 
         document.getElementById("btn").addEventListener("click",()=>{
