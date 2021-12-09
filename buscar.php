@@ -11,7 +11,7 @@
     $result = $connection->query($query);
     $array = array();
     while($row = $result->fetch_assoc()){
-	$array[] = $row;
+        $array[] = $row;
     }
 
 ?>
