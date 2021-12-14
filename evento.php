@@ -143,7 +143,7 @@
     </footer>
 
 <script>
-        
+	
         let lugar="<?php echo $ubicacion; ?>";
         let map;
         let infowindow;
