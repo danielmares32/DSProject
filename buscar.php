@@ -74,7 +74,7 @@
 		<div class="card-body">
 			<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
 			<p class="card-text">'.$array[$i]['descripcion'].'</p>
-			<a href="#" class="btn btn-primary">Ver Evento</a>
+			<a href="evento.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Ver Evento</a>
 		</div>
 	        </div>';    
 	    

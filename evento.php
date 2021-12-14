@@ -5,9 +5,22 @@
     }
     $nombre = $_SESSION["nombre"];
     $id = $_SESSION["id"];
-    //$idEvento = $_POST["idEvento"];
+    $idEvento = $_GET["idEvento"];
     require ('connection.php');
-
+    $connection=connect();
+    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';";
+    $result=$connection->query($query);
+    if($result){
+        disconnect($connection);
+    } else {
+        disconnect($connection);
+        echo '<script>window.alert("Evento No Mostrado Correctamente");window.location.href = "index.php";</script>';
+    }
+    $row = $result->fetch_assoc();
+    $fecha = $row['fecha'];
+    $ubicacion = $row['lugar'];
+    $descripcion = $row['descripcion'];
+    $hashtag = $row['hashtag'];
 ?>
 
 <!DOCTYPE html>
@@ -64,7 +77,7 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Fecha del Evento</h5>
-					<p class="card-text">2021-12-10 17:30:00</p>
+					<p class="card-text"><?php echo $fecha;?></p>
 				</div>
 			</div>
 		</div>
@@ -80,7 +93,7 @@
 				</div>
 				<div class="card-body">
 					<h5 class="card-title">Ubicación</h5>
-					<p class="card-text">Plaza de las Tres Centurias, Alameda, Barrio de la Estación, Aguascalientes, Ags., México</p>
+					<p class="card-text"><?php echo $ubicacion; ?></p>
 				</div>
 			</div>
 		</div>
@@ -88,14 +101,14 @@
 			<div class="card">
 				<div class="card-body">
 					<h5 class="card-title">Descripción</h5>
-					<p class="card-text">Es necesario llevar corbata.</p>
+					<p class="card-text"><?php echo $descripcion; ?></p>
 				</div>
 			</div>
 		</div>
 		<div class="col-sm-4 col-md-3 py-3">
 			<div class="card">
 				<div class="card-body">
-					<h5 class="card-title">#CLFCumpleañosDaniel</h5>
+					<h5 class="card-title"><?php echo $hashtag; ?></h5>
 				</div>
 			</div>
 		</div>
@@ -131,7 +144,7 @@
 
 <script>
         
-        let lugar="Plaza de las Tres Centurias, Alameda, Barrio de la Estación, Aguascalientes, Ags., México";
+        let lugar="<?php echo $ubicacion; ?>";
         let map;
         let infowindow;
         let service;
