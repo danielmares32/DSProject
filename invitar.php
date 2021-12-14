@@ -1,7 +1,13 @@
-<?php 
-require('connection.php');
-$idEvento = 1; //simplemente de prueba, modificar por post.
-$conexion = connect();
+<?php
+  session_start();
+	if(!isset($_SESSION["id"])){
+    header('Location: login.php');
+  }
+  $nombre = $_SESSION["nombre"];
+  $id = $_SESSION["id"]; 
+  require('connection.php');
+  $idEvento = 1; //simplemente de prueba, modificar por post.
+  $conexion = connect();
   if(isset($_POST["btnSubmit"])){
     $invitado = $_POST['nombreInvitado'];
     $invitaciones = $_POST['numInvitacion'];
@@ -13,7 +19,7 @@ $conexion = connect();
     $id_usu = $resultado['id'];
 
 
-    $queryI = "INSERT INTO invitadosevento (idEvento,idUsuario,boletos) VALUES($idEvento,$id_usu,$invitaciones);";
+    $queryI = "INSERT into invitadosevento (idEvento,idUsuario,boletos) VALUES($idEvento,$id_usu,$invitaciones);";
     $consulta2 = $conexion->query($queryI);
     if($consulta2){
       echo '<script>alert("invitado agregado al evento");</script>';
@@ -28,9 +34,9 @@ $conexion = connect();
 
 
  <!DOCTYPE html>
- <html lang=es>
+ <html>
  <head>
- 	 <meta charset="UTF-8">
+ 	  <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
@@ -39,74 +45,88 @@ $conexion = connect();
 
  	<title>Invitados</title>
  </head>
- <body>
- 
- <div class="container-xl" style="width: 100%; height: 100%">
- 	<div class="row" style="width: 100%; background-color: green; height: 100%;">
+<body> 
+    <nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
+        <div class="container">
+            <a class="navbar-brand" href="index.php"> 
+                <img src="logo.png" alt="Logo" srcset=""> 
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarResponsive">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="index.php">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="agregar.php">Agregar Fiesta</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="buscar.php">Buscar Fiesta</a>
+                    </li>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a href="" class="dropdown-item">Ver Mis Eventos</a>
+                            <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
+                            <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
 
- 		<div class="col-md-8" style="background-color: #474A4C;">
+    <br>
+    <h1 style="text-align:center">Busca a tus invitados.</h1>
+    <br>
+    <div class="container">
+        <div class="row" style="width: 100%;background-color:#3D59AB;height: 100%;">
+            <div class="col-md-12" style="background-color:#3D59AB;padding:2%;">    
+                <br><br>
+                <input class="form-control" type="text" id="buscarInvitado" placeholder="Busca por Nombre o Apellidos">
+                <br><br>
+                <div class="card col-12 mt-5">
+                    <div class="card-body">
+                      <div id="resultados_buscador" class="container pl-5 pr-5"></div>
+                    </div>
+                </div>
+                <br><br><br>
+            </div>   		
+        </div>  
+      <!--<div class="col-md-4" style=" background-image: url(fondoInv.jpg); background-repeat:no-repeat; background-position:center; background-size:cover;"></div>-->
+    </div>
 
+    <br>
+    <footer class="footer">       
+        <br><br> 
+        Comparte La Fiesta © 2021 Copyright
+        <br>
+        Ubicación: Aguascalientes, México
+    </footer>
 
-       <h1 style="color: #F6F7F9; text-align:center">Busca a tus invitados.</h1>
-       <br>
-       <br>
-       	<input class="form-control" type="text" id="buscarInvitado" placeholder="Nombre">
-       	<br>
-       	<br>
+    <!--script para busqueda-->
+    <script type="text/javascript">
+      
+        document.getElementById("buscarInvitado").addEventListener("keyup",()=>{
+            //aquí pones la función
+            let invitado = document.getElementById("buscarInvitado").value;
+            buscar_ahora(invitado);
+        });
 
-       	<div class="card col-12 mt-5">
-       		<div class="card-body">
-       			<div id="resultados_buscador" class="container pl-5 pr-5"></div>
-       		</div>
-       	</div><br><br><br>
-
-<!--formulario-->
-       <div class="table-responsive container">
-        <form id="myFormInv" method="POST" action="">
-        <table class="table table-responsive table-striped p-3">
-            <tr>
-                <td style="color:#F6F7F9;">Nombre del Invitado</td>
-                <td><input class="form-control" type="text" id="nombreInvitado" name="nombreInvitado" placeholder="Nombre del Invitado"></td>
-            </tr>
-            <tr>
-                <td style="color:#F6F7F9;">Numero de invitaciones</td>
-                <td><input class="form-control" type="number" id="numInvitacion" name="numInvitacion"></td>
-            </tr>
-        </table>
-        <br><br>
-            <button class="btn btn-primary" type="submit" id="btnSubmit" name="btnSubmit">Invitar</button>
-        </form>
-      </div>		
- 	</div>
-
-    <div class="col-md-4" style=" background-image: url(inv.jpg); background-repeat:no-repeat; background-position:center"></div>
- 
-   </div>
-
-
-
-
-<!--script para busqueda-->
-<script type="text/javascript">
-	
-    document.getElementById("buscarInvitado").addEventListener("keyup",()=>{
-        //aquí pones la función
-        let invitado = document.getElementById("buscarInvitado").value;
-        buscar_ahora(invitado);
-    });
-
-	function buscar_ahora(buscarInvitado){
-		var parametros = {"buscarInvitado":buscarInvitado};
-		$.ajax({
-			data: parametros,
-			type: 'POST',
-			url: 'buscar_Inv.php',
-			success: function(data){
-				document.getElementById("resultados_buscador").innerHTML = data;
-			}
-		});
-	}
-</script>
+      function buscar_ahora(buscarInvitado){
+        var parametros = {"buscarInvitado":buscarInvitado};
+        $.ajax({
+          data: parametros,
+          type: 'POST',
+          url: 'buscar_Inv.php',
+          success: function(data){
+            document.getElementById("resultados_buscador").innerHTML = data;
+          }
+        });
+      }
+    </script>
 
 <!--Bootstrap y jQuery JS-->
     <script src="js/bootstrap.bundle.min.js"></script>
