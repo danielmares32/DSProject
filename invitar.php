@@ -7,18 +7,18 @@ $conexion = connect();
     $invitaciones = $_POST['numInvitacion'];
 
     
-    $queryA = "SELECT id from usuarios WHERE nombre='$invitado'";
+    $queryA = "SELECT id from usuarios WHERE CONCAT(nombre,' ',apellidos)='$invitado';";
     $consulta = $conexion->query($queryA);
     $resultado = $consulta->fetch_assoc();
     $id_usu = $resultado['id'];
 
 
-    $queryI = "INSERT into invitadosevento (idEvento,idUsuario,boletos) VALUES($idEvento,$id_usu,$invitaciones)";
+    $queryI = "INSERT INTO invitadosevento (idEvento,idUsuario,boletos) VALUES($idEvento,$id_usu,$invitaciones);";
     $consulta2 = $conexion->query($queryI);
     if($consulta2){
-      alert("invitado agregado al evento");
+      echo '<script>alert("invitado agregado al evento");</script>';
     }else{
-      alert("algo salio mal :c");
+      echo '<script>alert("algo salio mal :c");</script>';
     }
 
   }
@@ -28,7 +28,7 @@ $conexion = connect();
 
 
  <!DOCTYPE html>
- <html>
+ <html lang=es>
  <head>
  	 <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -74,7 +74,7 @@ $conexion = connect();
             </tr>
         </table>
         <br><br>
-            <button class="btn btn-primary" type="button" id="btnSubmit" name="btnSubmit">Invitar</button>
+            <button class="btn btn-primary" type="submit" id="btnSubmit" name="btnSubmit">Invitar</button>
         </form>
       </div>		
  	</div>
