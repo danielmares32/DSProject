@@ -143,7 +143,17 @@
     </footer>
 
 <script>
-	
+
+        window.onload = function() {
+            $.ajax({
+                type: 'GET',
+                url: 'instagramAPI',
+                success: function(data){
+                    console.log(data);
+                }
+            });
+        };
+
         let lugar="<?php echo $ubicacion; ?>";
         let map;
         let infowindow;
