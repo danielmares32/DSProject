@@ -25,7 +25,7 @@
                 if (!file_exists(__DIR__.$ubicacion)) {
                     mkdir(__DIR__.$ubicacion, 0777, true);
                 }
-                move_uploaded_file($file_tmp,__DIR__.$ubicacion."/".$file_name);
+                move_uploaded_file($file_tmp,__DIR__.$ubicacion."/portada.jpg");
                 echo '<script>window.alert("Archivo Enviado Correctamente");</script>';
             }else{
                 print_r($errors);

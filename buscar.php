@@ -70,7 +70,7 @@
 		echo '<div class="card-group">';    
 	    }
 	    echo '<div class="card m-4 p-3 text-center text-white rounded" style="width: 18rem;background-color:#3D59AB;">
-		<img class="card-img-top" src="cumpleaños3.jpg" alt="Card image cap">
+		<img class="card-img-top" src="'.substr($array[$i]['ubicacion_Media'],1).'/portada.jpg'.'" alt="Card image cap">
 		<div class="card-body">
 			<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
 			<p class="card-text">'.$array[$i]['descripcion'].'</p>
