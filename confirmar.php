@@ -1,22 +1,38 @@
 <?php
     session_start();
-	if(!isset($_SESSION["id"])){
+    if(!isset($_SESSION["id"])){
         header('Location: login.php');
     }
     $nombre = $_SESSION["nombre"];
     $id = $_SESSION["id"];
+    $idEvento = $_GET["idEvento"];
     require ('connection.php');
     $connection=connect();
-    $query = "SELECT * FROM evento ORDER BY id_evento DESC;"; TODO("Cambiar query")
-    $result = $connection->query($query);
-    $array = array();
-    while($row = $result->fetch_assoc()){
-        $array[] = $row;
+    if(isset($_POST["cantBoletos"])){
+        $cantidad = $_POST["cantBoletos"]
+        $connection=connect();
+        $query = "INSERT INTO invitadosevento(idEvento,idUsuario,boletos,boletosConfirmados) VALUES('$idEvento','$id','$cantidad','$cantidad');";
+        $result=$connection->query($query);
+        if($result){
+            disconnect($connection);
+            echo '<script>window.alert("Boletos Registrados Correctamente");window.location.href = "index.php";</script>';
+        } else {
+            disconnect($connection);
+            echo '<script>window.alert("Boletos NO Registrados Correctamente");window.location.href = "index.php";</script>';
+        }
     }
+
+    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';"
+    $resultado=$connection->query($query);
+    $row = $resuladot->fetch_assoc();
+    $fecha = $row['fecha'];
+    $ubicacion = $row['lugar'];
+    $descripcion = $row['descripcion'];
+    $hashtag = $row['hashtag'];
 ?>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -24,8 +40,7 @@
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="logo.png">
-    <title>Ver Evento</title>
-</head>
+    <title>Agrega Evento</title></head>
 <body>
     <nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
         <div class="container">
@@ -59,5 +74,13 @@
         </div>
     </nav>
     
+    <h1 style="text-align: center;">¡Te han invitado!</h1><br>
+    <h2 style="text-align: center;">Te esperamos en: <?php echo $ubicacion ?> para festejar <?php echo $descripcion ?></h2><br>
+    <h2 style="text-align: center;">¡Marca la fecha!<br> <?php echo $fecha ?></h2>
+
+    <form id="formBoletos" method="POST" action="">
+    <label>¿Cuántos boletos quieres adquirir? </label> <input class="form-control" type="number" id="cantBoletos" name="cantBoletos" min="0">
+    </form>
+
 </body>
 </html>
