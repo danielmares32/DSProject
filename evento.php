@@ -70,10 +70,10 @@
     <h1 style="text-align: center;">¡Cumpleaños de Daniel!</h1>
     <br>
 
-    <div class="container">
-	    <!-- class="row row-cols-1 row-cols-md-3 g-4"-->
-	    <div id="datos" class="grid">
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+    <div class="container" style="margin-left: auto;margin-right: auto;">
+	    <!-- class="row row-cols-1 row-cols-md-3 "-->
+	    <div id="datos" class="grid row g-4" style="text-align:center;">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Fecha del Evento</h5>
@@ -81,12 +81,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <img src="cumpleaños3.jpg" class="card-img-top" alt="...">
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <div class="container">
                         <div id="map" style="margin-left: auto;margin-right: auto;height: 350px;width: 100%;"></div>
@@ -97,7 +97,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Descripción</h5>
@@ -105,14 +105,14 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><?php echo $hashtag; ?></h5>
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Agregar a mi calendario en Google Calendar</h5>
@@ -120,12 +120,12 @@
                     </div>
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <img src="cumpleaños.jpg" class="card-img-top" alt="...">
                 </div>
             </div>
-            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+            <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <img src="cumpleaños2.jpg" class="card-img-top" alt="...">
                 </div>
@@ -158,7 +158,7 @@
                             percentPosition: true,
                         });
                         $grid.masonry();
-                    }, 200);
+                    }, 50);
                     
                 }
             });

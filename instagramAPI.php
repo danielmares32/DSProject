@@ -8,7 +8,7 @@
     for ($i=0; $i < count($imgArray[0]); $i++) { 
         $url = $imgArray[0][$i]["node"]["thumbnail_src"];
         $im = file_get_contents($url);
-        echo '<div class="col-sm-4 col-md-3 py-3" style="margin:5px"><div class="card">';
+        echo '<div class="col-sm-4 col-md-3 py-3"><div class="card">';
         echo "<img class='card-img-top' src='data:image/jpg;base64,".base64_encode($im)."' alt='Image'>";
         echo '</div></div>';
     }
