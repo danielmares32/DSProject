@@ -8,9 +8,17 @@
     $idEvento = $_GET["idEvento"];
     require ('connection.php');
     $connection=connect();
+
+    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';"
+    $resultado=$connection->query($query);
+    $row = $resultado->fetch_assoc();
+    $fecha = $row['fecha'];
+    $ubicacion = $row['lugar'];
+    $descripcion = $row['descripcion'];
+    $hashtag = $row['hashtag'];
+
     if(isset($_POST["cantBoletos"])){
         $cantidad = $_POST["cantBoletos"]
-        $connection=connect();
         $query = "INSERT INTO invitadosevento(idEvento,idUsuario,boletos,boletosConfirmados) VALUES('$idEvento','$id','$cantidad','$cantidad');";
         $result=$connection->query($query);
         if($result){
@@ -21,14 +29,6 @@
             echo '<script>window.alert("Boletos NO Registrados Correctamente");window.location.href = "index.php";</script>';
         }
     }
-
-    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';"
-    $resultado=$connection->query($query);
-    $row = $resuladot->fetch_assoc();
-    $fecha = $row['fecha'];
-    $ubicacion = $row['lugar'];
-    $descripcion = $row['descripcion'];
-    $hashtag = $row['hashtag'];
 ?>
 
 <!DOCTYPE html>
