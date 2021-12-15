@@ -6,7 +6,7 @@
   $nombre = $_SESSION["nombre"];
   $id = $_SESSION["id"]; 
   require('connection.php');
-  $idEvento = 1; //simplemente de prueba, modificar por post.
+ $idEvento = $_GET['idEvento'];
   $conexion = connect();
   if(isset($_POST["btnSubmit"])){
     $invitado = $_POST['nombreInvitado'];
