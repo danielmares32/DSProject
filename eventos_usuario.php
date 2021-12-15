@@ -54,6 +54,7 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">
                         	<?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
+                            <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
                             <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
                             <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
@@ -68,17 +69,16 @@
 <?php
         echo '<div class="card-group">';
         for($i=0;$i<count($array);$i++){
-		$idEvent=$array[$i]['id_evento'];
 	    if($i % 3 == 0 && $i != 1){
 		echo '</div>';
 		echo '<div class="card-group">';    
 	    }
 	    echo '<div class="card m-4 p-3 text-center text-white rounded" style="width: 18rem;background-color:#3D59AB;">
-		<img class="card-img-top" src="cumpleaños3.jpg" alt="Card image cap">
+		<img class="card-img-top" src="'.substr($array[$i]['ubicacion_Media'],1).'/portada.jpg'.'" alt="Card image cap">
 		<div class="card-body">
 			<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
 			<p class="card-text">'.$array[$i]['descripcion'].'</p>
-			<p><a href="#" class="btn btn-primary">Ver Evento</a> o <a href="invitar.php?idEvento=$idEvent" class="btn btn-primary">Invitar</a></p>
+			<p><a href="evento.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Ver Evento</a> o <a href="invitar.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Invitar</a></p>
 		</div>
 	        </div>';    
 	    
