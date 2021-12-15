@@ -16,7 +16,10 @@
         $connection=connect();
         $query = "INSERT INTO evento(nombre,fecha,hashtag,descripcion,lugar,ubicacion_Media) VALUES('$nombre','$fecha','$hashtag','$descripcion','$locacion','$ubicacion');";
         $result=$connection->query($query);
-        if($result){
+        $last_id = $connection->insert_id;
+        $query2 = "INSERT INTO adminsevento(idEvento,idUsuario) VALUES('$last_id','$id');";
+        $result2=$connection->query($query2);
+        if($result && $result2){
             disconnect($connection);
             echo '<script>window.alert("Evento Registrado Correctamente");window.location.href = "index.php";</script>';
         } else {
@@ -141,7 +144,9 @@
             let hashtag = document.getElementById("hashtagEvento").value;
             let descripcion = document.getElementById("descripcion").value;
             let locacion = document.getElementById("search").value;
-            let condicion = !(nombre.lenght > 0 && fecha > 0 && hora > 0 && hashtag > 0 && descripcion > 0 && locacion > 0);
+            console.log(nombre+" "+fecha+" "+hora+" "+hashtag+" "+descripcion+" "+locacion);
+            let condicion = !(nombre.length > 0 && fecha.length > 0 && hora.length > 0 && hashtag.length > 0 && descripcion.length > 0 && locacion.length > 0);
+            console.log(condicion);
             if(condicion){
                 window.alert("Hay campos vacios");
             } else {
