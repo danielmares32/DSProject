@@ -13,6 +13,24 @@
         $descripcion = $_POST["descripcion"];
         $locacion = $_POST["locacion"];
         $ubicacion = "/".$id."/".$nombre."/".$_POST["fechaEvento"];
+        if(isset($_FILES['imagenEvento'])){
+            
+            $errors=array();
+            $file_name = $_FILES['imagenEvento']['name'];
+            $file_size =$_FILES['imagenEvento']['size'];
+            $file_tmp =$_FILES['imagenEvento']['tmp_name'];
+            $file_type=$_FILES['imagenEvento']['type'];
+            
+            if(empty($errors)){
+                if (!file_exists(__DIR__.$ubicacion)) {
+                    mkdir(__DIR__.$ubicacion, 0777, true);
+                }
+                move_uploaded_file($file_tmp,__DIR__.$ubicacion."/".$file_name);
+                echo '<script>window.alert("Archivo Enviado Correctamente");</script>';
+            }else{
+                print_r($errors);
+            }
+        }
         $connection=connect();
         $query = "INSERT INTO evento(nombre,fecha,hashtag,descripcion,lugar,ubicacion_Media) VALUES('$nombre','$fecha','$hashtag','$descripcion','$locacion','$ubicacion');";
         $result=$connection->query($query);
@@ -76,7 +94,7 @@
     <h1 style="text-align: center;">¡Puedes agregar tu evento aquí!</h1>
     <br>
     <div class="table-responsive container">
-        <form id="myForm" method="POST" action="">
+        <form id="myForm" method="POST" action="" enctype="multipart/form-data">
         <table class="table table-responsive table-striped p-3">
             <tr>
                 <td>Nombre del Evento</td>
@@ -101,6 +119,10 @@
             <tr>
                 <td>Locación</td>
                 <td><input type="text" class="form-control" id="search" name="locacion" placeholder="Escribe la direccion del evento"></td>
+            </tr>
+            <tr>
+                <td>Imagen del Evento</td>
+                <td><input name="imagenEvento" class="form-control" id="imagenEvento" type="file" accept="image/*"></td>
             </tr>
         </table>
         <div style="text-align: center;">
@@ -144,8 +166,9 @@
             let hashtag = document.getElementById("hashtagEvento").value;
             let descripcion = document.getElementById("descripcion").value;
             let locacion = document.getElementById("search").value;
-            console.log(nombre+" "+fecha+" "+hora+" "+hashtag+" "+descripcion+" "+locacion);
-            let condicion = !(nombre.length > 0 && fecha.length > 0 && hora.length > 0 && hashtag.length > 0 && descripcion.length > 0 && locacion.length > 0);
+            let imagen = document.getElementById('imagenEvento').value;
+            console.log(nombre+" "+fecha+" "+hora+" "+hashtag+" "+descripcion+" "+locacion+" "+imagen);
+            let condicion = !(nombre.length > 0 && fecha.length > 0 && hora.length > 0 && hashtag.length > 0 && descripcion.length > 0 && locacion.length > 0 && imagen.length > 0);
             console.log(condicion);
             if(condicion){
                 window.alert("Hay campos vacios");
