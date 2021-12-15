@@ -71,67 +71,67 @@
     <br>
 
     <div class="container">
-	    <!-- class="row row-cols-1 row-cols-md-3 g-4" -->
-	    <div class="row" data-masonry='{"percentPosition": true }'>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Fecha del Evento</h5>
-					<p class="card-text"><?php echo $fecha;?></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<img src="cumpleaños3.jpg" class="card-img-top" alt="...">
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<div class="container">
-					<div id="map" style="margin-left: auto;margin-right: auto;height: 350px;width: 100%;"></div>
-				</div>
-				<div class="card-body">
-					<h5 class="card-title">Ubicación</h5>
-					<p class="card-text"><?php echo $ubicacion; ?></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Descripción</h5>
-					<p class="card-text"><?php echo $descripcion; ?></p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title"><?php echo $hashtag; ?></h5>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<div class="card-body">
-					<h5 class="card-title">Agregar a mi calendario en Google Calendar</h5>
-					<p class="card-text">API de Google Calendar</p>
-				</div>
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<img src="cumpleaños.jpg" class="card-img-top" alt="...">
-			</div>
-		</div>
-		<div class="col-sm-4 col-md-3 py-3">
-			<div class="card">
-				<img src="cumpleaños2.jpg" class="card-img-top" alt="...">
-			</div>
-		</div>
+	    <!-- class="row row-cols-1 row-cols-md-3 g-4"-->
+	    <div id="datos" class="grid">
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Fecha del Evento</h5>
+                        <p class="card-text"><?php echo $fecha;?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <img src="cumpleaños3.jpg" class="card-img-top" alt="...">
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <div class="container">
+                        <div id="map" style="margin-left: auto;margin-right: auto;height: 350px;width: 100%;"></div>
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">Ubicación</h5>
+                        <p class="card-text"><?php echo $ubicacion; ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Descripción</h5>
+                        <p class="card-text"><?php echo $descripcion; ?></p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title"><?php echo $hashtag; ?></h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Agregar a mi calendario en Google Calendar</h5>
+                        <p class="card-text">API de Google Calendar</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <img src="cumpleaños.jpg" class="card-img-top" alt="...">
+                </div>
+            </div>
+            <div class="col-sm-4 col-md-3 py-3" style="margin:5px">
+                <div class="card">
+                    <img src="cumpleaños2.jpg" class="card-img-top" alt="...">
+                </div>
+            </div> 
 	    </div>
-        </div>
+    </div>
 
 
     <br><br>
@@ -142,14 +142,24 @@
         Ubicación: Aguascalientes, México
     </footer>
 
-<script>
+    <script>
 
         window.onload = function() {
+            let parametros = {"hashtag":"<?php echo $hashtag;?>"}
             $.ajax({
-                type: 'GET',
-                url: 'instagramAPI',
+                data:parametros,
+                type: 'POST',
+                url: 'instagramAPI.php',
                 success: function(data){
                     console.log(data);
+                    document.getElementById("datos").innerHTML += data;
+                    setTimeout(() => {
+                        var $grid = $('.grid').masonry({
+                            percentPosition: true,
+                        });
+                        $grid.masonry();
+                    }, 200);
+                    
                 }
             });
         };
