@@ -21,7 +21,7 @@
     $ubicacion = $row['lugar'];
     $descripcion = $row['descripcion'];
     $hashtag = $row['hashtag'];
-	$nombreE = $row['nombre'];
+	  $nombreE = $row['nombre'];
 ?>
 
 <!DOCTYPE html>
@@ -70,7 +70,7 @@
     </nav>
 <pre id="content" style="white-space: pre-wrap;"></pre>
     <br>
-    <h1 style="text-align: center;">¡Cumpleaños de Daniel!</h1>
+    <h1 style="text-align: center;">¡<?php echo $nombreE;?>!</h1>
     <br>
 
     <div class="container" style="margin-left: auto;margin-right: auto;">
