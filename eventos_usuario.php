@@ -67,7 +67,8 @@
 
 <?php
         echo '<div class="card-group">';
-        for($i=0;$i<count($array);$i++){	
+        for($i=0;$i<count($array);$i++){
+		$idEvent=$array[$i]['id_evento'];
 	    if($i % 3 == 0 && $i != 1){
 		echo '</div>';
 		echo '<div class="card-group">';    
@@ -77,7 +78,7 @@
 		<div class="card-body">
 			<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
 			<p class="card-text">'.$array[$i]['descripcion'].'</p>
-			<a href="#" class="btn btn-primary">Ver Evento</a>
+			<p><a href="#" class="btn btn-primary">Ver Evento</a> o <a href="invitar.php?idEvento=$idEvent" class="btn btn-primary">Invitar</a></p>
 		</div>
 	        </div>';    
 	    

@@ -64,7 +64,7 @@
                     <li class="nav-item dropdown">
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
-                            <a href="" class="dropdown-item">Ver Mis Eventos</a>
+                            <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
                             <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
                             <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
@@ -81,6 +81,7 @@
     <form id="formBoletos" method="POST" action="">
     <label>¿Cuántos boletos quieres adquirir? </label> <input class="form-control" type="number" id="cantBoletos" name="cantBoletos" min="0">
     </form>
+    <a href="evento.php?idEvento=<?php echo $idEvento?>">Regresar</a>
 
 </body>
 </html>
