@@ -6,7 +6,7 @@ $queryB = "SELECT nombre,apellidos FROM usuarios WHERE nombre LIKE LOWER('%".$_P
 
 $conexion = connect();
 $consulta = $conexion->query($queryB);
-
+$idEvento = $_POST["idEvento"];
 
 ?>
 
@@ -19,7 +19,10 @@ $consulta = $conexion->query($queryB);
         <table class="table table-responsive table-striped p-3">
             <tr>
             	<td style="color:#082152;"><?php echo $resultado["nombre"]." ".$resultado["apellidos"] ?></td>
-                <td><input class="form-control" type="hidden" id="nombreInvitado" name="nombreInvitado" value='<?php echo $resultado["nombre"]." ".$resultado["apellidos"] ?>'></td>
+                <td>
+                    <input class="form-control" type="hidden" id="nombreInvitado" name="nombreInvitado" value='<?php echo $resultado["nombre"]." ".$resultado["apellidos"] ?>'>
+                    <input type="hidden" name="idEvento" value="<?php echo $idEvento ?>">
+                </td>
             </tr>
             <tr>
                 <td style="color:#082152">Numero de invitaciones</td>

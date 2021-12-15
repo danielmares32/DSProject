@@ -78,7 +78,11 @@
 		<div class="card-body">
 			<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
 			<p class="card-text">'.$array[$i]['descripcion'].'</p>
-			<p><a href="evento.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Ver Evento</a> o <a href="invitar.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Invitar</a></p>
+			<p><a href="evento.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Ver Evento</a></p>
+            <form action="invitar.php" method="POST">
+                <input type="hidden" name="idEvento" value="'.$array[$i]['id_evento'].'">
+                <button type="submit" class="btn btn-primary">Invitar</button>
+            </form>
 		</div>
 	        </div>';    
 	    

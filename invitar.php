@@ -6,7 +6,7 @@
   $nombre = $_SESSION["nombre"];
   $id = $_SESSION["id"]; 
   require('connection.php');
- $idEvento = $_GET['idEvento'];
+  $idEvento = $_POST['idEvento'];
   $conexion = connect();
   if(isset($_POST["btnSubmit"])){
     $invitado = $_POST['nombreInvitado'];
@@ -122,7 +122,7 @@
         });
 
       function buscar_ahora(buscarInvitado){
-        var parametros = {"buscarInvitado":buscarInvitado};
+        var parametros = {"buscarInvitado":buscarInvitado,"idEvento":"<?php echo $idEvento; ?>"};
         $.ajax({
           data: parametros,
           type: 'POST',
