@@ -81,6 +81,7 @@
     <form id="formBoletos" method="POST" action="">
     <label>¿Cuántos boletos quieres adquirir? </label> <input class="form-control" type="number" id="cantBoletos" name="cantBoletos" min="0">
     </form>
+    <a href="evento.php?idEvento=<?php echo $idEvento?>">Regresar</a>
 
 </body>
 </html>
