@@ -291,7 +291,7 @@
         }).then(function () {
           // Listen for sign-in state changes.
           gapi.auth2.getAuthInstance().isSignedIn.listen(updateSigninStatus);
-			console.log('Hola');
+			//console.log('Hola');
           // Handle the initial sign-in state.
           updateSigninStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
            AddEventButton = document.getElementById('Add Event');
@@ -379,7 +379,7 @@
       }
 	  
 	  function handleAddEvent(event){
-		console.log('HOLA!!!');
+		//console.log('HOLA!!!');
 		gapi.auth2.getAuthInstance().signIn();
 			// Refer to the JavaScript quickstart on how to setup the environment:
 		// https://developers.google.com/calendar/quickstart/js
@@ -420,8 +420,8 @@
 		});
 
 		request.execute(function(event) {
-			console.log('');
-		  appendPre('Event created: ' + event.htmlLink);
+			//console.log('');
+		 // appendPre('Event created: ' + event.htmlLink);
 		});
 
 	}
