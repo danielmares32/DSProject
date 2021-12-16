@@ -22,6 +22,7 @@
     $descripcion = $row['descripcion'];
     $hashtag = $row['hashtag'];
 	  $nombreE = $row['nombre'];
+    $dir_fotos = $row['ubicacion_Media'];
 ?>
 
 <!DOCTYPE html>
@@ -123,6 +124,21 @@
                     </div>
                 </div>
             </div>
+            <?php
+               
+              $dirname = substr($dir_fotos,1).'/';
+              $images = glob($dirname."*.{jpg,gif,png}",GLOB_BRACE);
+              echo '<script>console.log("El directorio es '.$dirname.'")</script>';
+              foreach($images as $image) {
+                echo '<div class="col-sm-4 col-md-3 py-3">
+                <div class="card">
+                  <img class="card-img-top" src="'.$image.'"/>
+                </div>
+                </div>';
+              }
+            
+            
+            ?>
             <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <img src="cumpleaños.jpg" class="card-img-top" alt="...">
