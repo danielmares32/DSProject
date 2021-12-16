@@ -101,5 +101,17 @@
 	</form>
      </div>
 
+     <br><br><br><br><br><br><br><br>
+     <br><br><br><br><br><br><br><br><br>
+    <footer class="footer">       
+        <br><br> 
+        Comparte La Fiesta © 2021 Copyright
+        <br>
+        Ubicación: Aguascalientes, México
+    </footer>
+
+    <!--Bootstrap y jQuery JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
