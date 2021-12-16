@@ -83,6 +83,11 @@
                 <input type="hidden" name="idEvento" value="'.$array[$i]['id_evento'].'">
                 <button type="submit" class="btn btn-primary">Invitar</button>
             </form>
+            <br>
+            <form action="agregarFotos.php" method="POST">
+                <input type="hidden" name="idEvento" value="'.$array[$i]['id_evento'].'">
+                <button type="submit" class="btn btn-primary">Agregar Fotos</button>
+            </form>
 		</div>
 	        </div>';    
 	    
