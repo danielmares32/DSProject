@@ -55,7 +55,7 @@
                         	<?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
-                            <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
+                            <a href="invitaciones_usuario.php" class="dropdown-item">Ver Mis Invitaciones</a>
                             <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
                     </li>

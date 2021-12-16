@@ -5,21 +5,23 @@
     }
     $nombre = $_SESSION["nombre"];
     $id = $_SESSION["id"];
-    $idEvento = $_GET["idEvento"];
+    $idEvento = $_POST["idEvento"];
     require ('connection.php');
     $connection=connect();
 
-    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';"
+    $query = "SELECT * FROM evento,invitadosevento WHERE id_evento=idEvento and invitadosevento.idUsuario='$id' and idEvento = '$idEvento';";
     $resultado=$connection->query($query);
     $row = $resultado->fetch_assoc();
     $fecha = $row['fecha'];
     $ubicacion = $row['lugar'];
     $descripcion = $row['descripcion'];
     $hashtag = $row['hashtag'];
-
+    $boletos = $row['boletos'];
+    $idInvitado = $row['idInvitado'];
     if(isset($_POST["cantBoletos"])){
-        $cantidad = $_POST["cantBoletos"]
-        $query = "INSERT INTO invitadosevento(idEvento,idUsuario,boletos,boletosConfirmados) VALUES('$idEvento','$id','$cantidad','$cantidad');";
+        $idInvitado = $_POST['idInvitado'];
+        $cantidad = $_POST["cantBoletos"];
+        $query = "UPDATE invitadosevento SET boletosConfirmados = '$cantidad' WHERE idInvitado='$idInvitado';";
         $result=$connection->query($query);
         if($result){
             disconnect($connection);
@@ -65,7 +67,7 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
-                            <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
+                            <a href="invitaciones_usuario.php" class="dropdown-item">Ver Mis Invitaciones</a>
                             <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
                     </li>
@@ -73,15 +75,34 @@
             </div>
         </div>
     </nav>
-    
-    <h1 style="text-align: center;">¡Te han invitado!</h1><br>
-    <h2 style="text-align: center;">Te esperamos en: <?php echo $ubicacion ?> para festejar <?php echo $descripcion ?></h2><br>
-    <h2 style="text-align: center;">¡Marca la fecha!<br> <?php echo $fecha ?></h2>
 
-    <form id="formBoletos" method="POST" action="">
-    <label>¿Cuántos boletos quieres adquirir? </label> <input class="form-control" type="number" id="cantBoletos" name="cantBoletos" min="0">
-    </form>
-    <a href="evento.php?idEvento=<?php echo $idEvento?>">Regresar</a>
+    <div class="container" style="text-align:center;">
+    
+        <h1 style="text-align: center;">¡Te han invitado!</h1><br>
+        <h2 style="text-align: center;">Te esperamos en: <?php echo $ubicacion ?> para festejar <?php echo $descripcion ?></h2><br>
+        <h2 style="text-align: center;">¡Marca la fecha!<br> <?php echo $fecha ?></h2>
+        <h2 style="text-align: center;">Tienes máximo<br> <?php echo $boletos ?> Boletos</h2>
+
+        <form id="formBoletos" method="POST" action="">
+            <input class="form-control" type="hidden" name="idInvitado" value="<?php echo $idInvitado;?>">
+            <br>
+            <h3>¿Cuántos boletos quieres confirmar? </h3> <input class="form-control" type="number" id="cantBoletos" name="cantBoletos" min="0" max="<?php echo $boletos;?>">
+            <br>
+            <button type="submit" class="btn btn-primary">Confirmar</button>
+        </form>
+    </div>
+
+    <br><br><br><br><br><br><br>
+    <footer class="footer">       
+        <br><br> 
+        Comparte La Fiesta © 2021 Copyright
+        <br>
+        Ubicación: Aguascalientes, México
+    </footer>
+
+    <!--Bootstrap y jQuery JS-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
 
 </body>
 </html>
