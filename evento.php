@@ -8,7 +8,7 @@
     $idEvento = $_GET["idEvento"];
     require ('connection.php');
     $connection=connect();
-    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';";
+    $query = "SELECT * FROM evento e, invitadosevento inv WHERE e.id_evento = '$idEvento' and inv.idEvento = '$idEvento;";
     $result=$connection->query($query);
     if($result){
         disconnect($connection);
@@ -22,6 +22,8 @@
     $descripcion = $row['descripcion'];
     $hashtag = $row['hashtag'];
 	  $nombreE = $row['nombre'];
+    $boletos = $row['boletosConfirmados'];
+    $creador = $row['idUsuario'];
     $dir_fotos = $row['ubicacion_Media'];
 ?>
 
@@ -85,6 +87,16 @@
                     </div>
                 </div>
             </div>
+            <?php if($id == $creador){ ?>
+              <div class="col-sm-4 col-md-3 py-3">
+                  <div class="card">
+                      <div class="card-body">
+                          <h5 class="card-title">Boletos confirmados</h5>
+                          <p class="card-text"><?php echo $boletos;?></p>
+                      </div>
+                  </div>
+              </div>
+            <?php } ?>
             <div class="col-sm-4 col-md-3 py-3">
                 <div class="card">
                     <img src="cumpleaños3.jpg" class="card-img-top" alt="...">
