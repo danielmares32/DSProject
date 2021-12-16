@@ -1,58 +1,37 @@
 <?php
-    session_start();
-    if(!isset($_SESSION["id"])){
+   session_start();
+	if(!isset($_SESSION["id"])){
         header('Location: login.php');
     }
-    if(!isset($_POST["idEvento"])){
-	header('Location: index.php');
-    }
-    $idEvento = $_POST["idEvento"];
     $nombre = $_SESSION["nombre"];
     $id = $_SESSION["id"];
+    
     require ('connection.php');
     $connection=connect();
-    if(isset($_FILES["archivo"]['tmp_name'])){
-	$query="SELECT * FROM evento WHERE id_evento=$idEvento;";
-	$result = $connection->query($query);
-	$row = $result->fetch_assoc();
-	foreach($_FILES["archivo"]['tmp_name'] as $key => $tmp_name){
-		//Validamos que el archivo exista
-		if($_FILES["archivo"]["name"][$key]) {
-			$filename = $_FILES["archivo"]["name"][$key];
-			$source = $_FILES["archivo"]["tmp_name"][$key]; 
-			
-			$directorio = substr($row["ubicacion_Media"],1); 
-			
-			if(!file_exists($directorio)){
-				mkdir($directorio, 0777) or die("No se puede crear el directorio de extracci&oacute;n");	
-			}
-			
-			$dir=opendir($directorio); 
-			$target_path = $directorio.'/'.$filename;
-			
-			if(move_uploaded_file($source, $target_path)) {	
-				echo "<script>alert('El archivo $filename se ha almacenado en forma exitosa.');</script>";
-			} else {	
-				echo "<script>alert('Ha ocurrido un error, por favor inténtelo de nuevo.');</script>";
-			}
-			closedir($dir);
-		}
-	}
+    $query = "SELECT * FROM evento,invitadosevento WHERE evento.id_evento=invitadosevento.idEvento AND invitadosevento.idUsuario=$id ORDER BY id_evento DESC;";
+    $result = $connection->query($query);
+    $array = array();
+    while($row = $result->fetch_assoc()){
+        $array[] = $row;
     }
 
 ?>
+
 <!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-    <meta charset="UTF-8">
+	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/bootstrap.css">
     <link rel="stylesheet" href="style.css">
     <link rel="shortcut icon" href="logo.png">
-    <title>Agrega Evento</title></head>
+    <title>Tus eventos</title></head>
+	
+</head>
 <body>
-    <nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
+
+<nav class="navbar navbar-expand-lg static-top navbar-dark" style="background-color:rgb(52, 13, 95);">
         <div class="container">
             <a class="navbar-brand" href="index.php"> 
                 <img src="logo.png" alt="Logo" srcset=""> 
@@ -72,7 +51,8 @@
                         <a class="nav-link" href="buscar.php">Buscar Fiesta</a>
                     </li>
                     <li class="nav-item dropdown">
-                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
+                        <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown">
+                        	<?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
                             <a href="invitaciones_usuario.php" class="dropdown-item">Ver Mis Invitaciones</a>
@@ -83,26 +63,48 @@
             </div>
         </div>
     </nav>
+    <br><br>
+     <h1 style="text-align: center;">Tus Eventos</h1><br>
 
-    <br>
-    <h1 style="text-align: center;">¡Puedes agregar fotos de tu evento aquí!</h1>
-    <br>
+<?php
+        echo '<div class="card-group">';
+        for($i=0;$i<count($array);$i++){
+	    if($i % 3 == 0 && $i != 1){
+		echo '</div>';
+		echo '<div class="card-group">';    
+	    }
+	    echo '<script>console.log("BoletosConfirmados: '.$array[$i]['boletosConfirmados'].'")</script>';
+	    if($array[$i]['boletosConfirmados']==''){
+		echo '<div class="card m-4 p-3 text-center text-white rounded" style="width: 18rem;background-color:#3D59AB;">
+			<img class="card-img-top" src="'.substr($array[$i]['ubicacion_Media'],1).'/portada.jpg'.'" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
+				<p class="card-text">'.$array[$i]['descripcion'].'</p>
+				<p><a href="evento.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Ver Evento</a></p>
+				<form action="confirmar.php" method="POST">
+					<input type="hidden" name="idEvento" value="'.$array[$i]['id_evento'].'">
+					<button type="submit" class="btn btn-primary">Confirmar</button>
+				</form>
+			</div>
+			</div>';  
+	    } else {
+		 echo '<div class="card m-4 p-3 text-center text-white rounded" style="width: 18rem;background-color:#3D59AB;">
+			<img class="card-img-top" src="'.substr($array[$i]['ubicacion_Media'],1).'/portada.jpg'.'" alt="Card image cap">
+			<div class="card-body">
+				<h5 class="card-title">'.$array[$i]['nombre'].'</h5>
+				<p class="card-text">'.$array[$i]['descripcion'].'</p>
+				<p><a href="evento.php?idEvento='.$array[$i]['id_evento'].'" class="btn btn-primary">Ver Evento</a></p>
+			</div>
+			</div>';     
+	    }  
+	    
+	}
+	echo '</div>';
+    ?>
 
-    <div class="container" style="text-align: center">		
-	<form method="post" action="" enctype="multipart/form-data">			
-		<h4 class="text-center">Cargar Multiple Archivos</h4>
-		<div class="form-group">
-			<input type="hidden" name="idEvento" value="<?php echo $idEvento;?>">
-			<label class="col-sm-2 control-label">Archivos</label>
-			<input type="file" class="form-control" id="archivo[]" name="archivo[]" multiple="" accept="image/*">
-			<br>					
-			<button type="submit" class="btn btn-primary">Cargar</button>
-		</div>					
-	</form>
-     </div>
 
-     <br><br><br><br><br><br><br><br>
-     <br><br><br><br><br><br><br><br><br>
+
+<br>
     <footer class="footer">       
         <br><br> 
         Comparte La Fiesta © 2021 Copyright
