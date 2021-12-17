@@ -7,23 +7,32 @@
     $id = $_SESSION["id"];
     $idEvento = $_GET["idEvento"];
     require ('connection.php');
+    //Ver si es admin
     $connection=connect();
-    $query = "SELECT * FROM evento e, invitadosevento inv WHERE e.id_evento = '$idEvento' and inv.idEvento = '$idEvento;";
+    $query = "SELECT * FROM evento e, adminsevento adm WHERE e.id_evento = adm.idEvento and e.id_evento = '$idEvento';";
     $result=$connection->query($query);
     if($result){
-        disconnect($connection);
+      $row = $result->fetch_assoc();
+      $creador = @$row['idUsuario'];
+      $query2 = "SELECT idEvento,SUM(boletosConfirmados) as sumaBoletos FROM invitadosevento WHERE idEvento='$idEvento' GROUP BY idEvento;";
+      $result2=$connection->query($query2);
+      $row2 = $result2->fetch_assoc();
+      $boletos = @$row2['sumaBoletos'];
+      disconnect($connection);  
     } else {
         disconnect($connection);
         echo '<script>window.alert("Evento No Mostrado Correctamente");window.location.href = "index.php";</script>';
     }
+    //Si no es
+    $connection=connect();
+    $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';";
+    $result=$connection->query($query);
     $row = $result->fetch_assoc();
     $fecha = $row['fecha'];
     $ubicacion = $row['lugar'];
     $descripcion = $row['descripcion'];
     $hashtag = $row['hashtag'];
 	  $nombreE = $row['nombre'];
-    $boletos = $row['boletosConfirmados'];
-    $creador = $row['idUsuario'];
     $dir_fotos = $row['ubicacion_Media'];
 ?>
 
@@ -63,7 +72,7 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
-                            <a href="" class="dropdown-item">Ver Mis Invitaciones</a>
+                            <a href="invitaciones_usuario.php" class="dropdown-item">Ver Mis Invitaciones</a>
                             <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
                     </li>
