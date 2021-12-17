@@ -7,32 +7,35 @@
     $id = $_SESSION["id"];
     $idEvento = $_GET["idEvento"];
     require ('connection.php');
-    //Ver si es admin
     $connection=connect();
-    $query = "SELECT * FROM evento e, adminsevento adm WHERE e.id_evento = adm.idEvento and e.id_evento = '$idEvento';";
+    $query = "SELECT * FROM evento e, adminsevento adm WHERE e.id_evento = '$idEvento' and adm.idEvento = '$idEvento';";
     $result=$connection->query($query);
+	
     if($result){
-      $row = $result->fetch_assoc();
+	  $row = $result->fetch_assoc();
       $creador = @$row['idUsuario'];
       $query2 = "SELECT idEvento,SUM(boletosConfirmados) as sumaBoletos FROM invitadosevento WHERE idEvento='$idEvento' GROUP BY idEvento;";
       $result2=$connection->query($query2);
       $row2 = $result2->fetch_assoc();
-      $boletos = @$row2['sumaBoletos'];
-      disconnect($connection);  
+      $boletos = @$row2['sumaBoletos'];	
+        disconnect($connection);
     } else {
         disconnect($connection);
-        echo '<script>window.alert("Evento No Mostrado Correctamente");window.location.href = "index.php";</script>';
+        echo "<script>window.alert('Evento No Mostrado Correctamente:');window.location.href = 'index.php';</script>";
     }
-    //Si no es
-    $connection=connect();
+	$connection=connect();
     $query = "SELECT * FROM evento WHERE id_evento = '$idEvento';";
     $result=$connection->query($query);
-    $row = $result->fetch_assoc();
+	$row = $result->fetch_assoc();
+
+   
     $fecha = $row['fecha'];
     $ubicacion = $row['lugar'];
     $descripcion = $row['descripcion'];
     $hashtag = $row['hashtag'];
 	  $nombreE = $row['nombre'];
+   // $boletos = $row['boletosConfirmados'];
+    //$creador = $row['idUsuario'];
     $dir_fotos = $row['ubicacion_Media'];
 ?>
 
@@ -72,8 +75,8 @@
                         <a href="#" class="nav-link dropdown-toggle active" data-bs-toggle="dropdown"><?php echo $_SESSION["nombre"]; ?></a>
                         <div class="dropdown-menu dropdown-menu-end">
                             <a href="eventos_usuario.php" class="dropdown-item">Ver Mis Eventos</a>
-                            <a href="invitaciones_usuario.php" class="dropdown-item">Ver Mis Invitaciones</a>
-                            <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
+                          <a href="invitaciones_usuario.php" class="dropdown-item">Ver Mis Invitaciones</a>
+                              <a href="logout.php?salir=true" class="dropdown-item">Logout</a>
                         </div>
                     </li>
                 </ul>
@@ -141,7 +144,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title">Agregar a mi calendario en Google Calendar</h5>
-                        <p class="card-text"><button onclick="handleAddEvent()" id="Add Event"> Añadir Evento</button> </p>
+                        <p class="card-text"><button onclick="callHAC()" id="Add Event"> Añadir Evento</button> </p>
                     </div>
                 </div>
             </div>
@@ -332,10 +335,21 @@
       /**
        *  Sign in the user upon button click.
        */
-      function handleAuthClick(event) {
-        gapi.auth2.getAuthInstance().signIn();
+      function handleAuthClick(myCallBack) {
+		  
+		  Promise.resolve(window.gapi.auth2.getAuthInstance().signIn())
+  .then(() => { myCallBack(null); })
+       /* gapi.auth2.getAuthInstance().signIn().onfinish=function (){
+			
+			
+		};*/
+		
+		
       }
-
+	
+	  function callHAC(event){
+		handleAuthClick(handleAddEvent);
+	  }
       /**
        *  Sign out the user upon button click.
        */
@@ -370,7 +384,7 @@
           'orderBy': 'startTime'
         }).then(function(response) {
           var events = response.result.items;
-          appendPre('Upcoming events:');
+          //appendPre('Upcoming events:');
 
           if (events.length > 0) {
             for (i = 0; i < events.length; i++) {
@@ -379,17 +393,17 @@
               if (!when) {
                 when = event.start.date;
               }
-              appendPre(event.summary + ' (' + when + ')')
+             // appendPre(event.summary + ' (' + when + ')')
             }
           } else {
-            appendPre('No upcoming events found.');
+           // appendPre('No upcoming events found.');
           }
         });
       }
 	  
 	  function handleAddEvent(event){
 		//console.log('HOLA!!!');
-		gapi.auth2.getAuthInstance().signIn();
+		
 			// Refer to the JavaScript quickstart on how to setup the environment:
 		// https://developers.google.com/calendar/quickstart/js
 		// Change the scope to 'https://www.googleapis.com/auth/calendar' and delete any
@@ -408,7 +422,7 @@
 			'timeZone': 'America/Los_Angeles'
 		  },
 		  'recurrence': [
-			'RRULE:FREQ=DAILY;COUNT=2'
+			'RRULE:FREQ=DAILY;COUNT=1'
 		  ],
 		  'attendees': [
 			{'email': 'lpage@example.com'},
