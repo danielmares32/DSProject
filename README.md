@@ -1,6 +1,8 @@
 # DSProject
 Red Social sobre Eventos Sociales
 
+![dsproject](https://user-images.githubusercontent.com/53630621/147286504-cc6f8bb3-570c-48dc-b61a-88dc34a0d14c.png)
+
 # Video en Youtube
 Explicación sobre el proyecto: https://youtu.be/9oAWZHEk1ZU
 
