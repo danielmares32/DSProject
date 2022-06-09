@@ -36,7 +36,7 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index.php">Inicio</a>
                     </li>
-                    <li class="nav-item active">
+					<li class="nav-item active">
 						<a class="nav-link" href="anuncios.php">Proveedores</a>
 					</li>
                     <?php if($estaLogeado){ ?>
@@ -71,26 +71,22 @@
         </div>
     </nav>
     <br>
-    <h1 style="text-align: center;">Compartir tus Fiestas con el Mundo</h1>
+    <h1 style="text-align: center;">Lo que necesitas para organizar tu fiesta</h1>
     <br>
-    <h5 style="text-align: center;">Comparte La Fiesta es una red social para eventos sociales.</h5>
-    <h5 style="text-align: center;">Logramos que organizar eventos sea una tarea fácil, </h5> 
-    <h5 style="text-align: center;">ayudamos a tener toda la información de la fiesta en un solo espacio,</h5> 
-    <h5 style="text-align: center;">permitiendo compartir experiencias, videos y fotos,</h5>
-    <h5 style="text-align: center;">confirmar invitados, y mucho más.</h5>
+    <h5 style="text-align: center;">Organizar una fiesta es más fácil con nuestros proveedores, </h5> 
+    <h5 style="text-align: center;">ellos te ayudarán a tener todo lo necesario para que tu fiesta sea un hit.</h5> 
     <br>
     <div class="table-responsive">
         <table class="table table-borderless" style="text-align: center;margin: 0;">
             <tr>
                 <td colspan="2">
-                    <img src="fiesta-de-cumpleaños-1.jpg" alt="" class="img-thumbnail" id="imgInicio">
+                    <img src="anuncio.jpg" alt="" class="img-thumbnail" id="imgInicio">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
                     <br>
-                    <h1>Comparte tus platillos favoritos</h1>
-                    <h5>Sorprende a tus invitados con la mejor comida</h5> 
+                    <h1>Nuestros Proveedores</h1>
                     <br>
                 </td>
             </tr>
@@ -102,27 +98,7 @@
                     <img src="banquete-boda.jpg" alt="" class="img-thumbnail" id="imgInicio">
                 </td>
             </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
-                    <h1>Porque recordar es volver a vivir</h1>
-                    <h5>Publica tus mejores fotos y videos después de la fiesta, </h5> 
-                    <h5>para después compartirlos a través de redes sociales.</h5> 
-                    <br>
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <img src="boda.jpg" alt="" class="img-thumbnail" id="imgInicio">
-                </td>
-            </tr>
-            <tr>
-                <td colspan="2">
-                    <br>
-                    <h1>Y Mucho Más...</h1>
-                    <br>
-                </td>
-            </tr>
+            
         </table>
     </div>
     <br>

@@ -10,7 +10,7 @@
        $fechaNacimiento = $_POST["fechaNac"];
        $correo = $_POST["correo"];
        $pass = md5($_POST["password"]);
-       $query = "INSERT INTO usuarios(nombre,apellidos,fecha_nacimiento,correo,contrasena) VALUES ('$nombre','$apellidos','$fechaNacimiento','$correo','$pass')"; 
+       $query = "INSERT INTO proveedor(nombre_empresa, estado, calle, numero, cp, telefono, correo, constrasena) VALUES ('$nombre_empresa','$estado','$calle','$numero','$cp','$telefono','$correo','$pass')"; 
        $connection=connect();
        $result=$connection->query($query);
        if($result){
@@ -64,21 +64,29 @@
         </div>
     </nav>
     <br>
-    <h1 style="text-align: center;">¡Registrese Aquí!</h1>
+    <h1 style="text-align: center;">¡Proveedor Registrese Aquí!</h1>
     <br>
     <div style="margin-left: auto;margin-right: auto;" class="col-md-7 col-lg-5 col-xl-5 offset-xl-1">
     <form id="myForm" method="POST" action="">
         <div class="form-outline mb-4"> 
-	        <label class="form-label" for="nombre">Nombre</label>
-            <input name="nombre" type="text" id="nombre" class="form-control form-control-lg" placeholder="Nombre"/>
+	        <label class="form-label" for="nombre_empresa">Nombre de la Empresa</label>
+            <input name="nombre_empresa" type="text" id="nombre_empresa" class="form-control form-control-lg" placeholder="Nombre Empresa"/>
         </div>
         <div class="form-outline mb-4"> 
-	        <label class="form-label" for="apellidos">Apellidos</label>
-            <input name="apellidos" type="text" id="apellidos" class="form-control form-control-lg" placeholder="Apellidos"/>
+	        <label class="form-label" for="calle">Calle</label>
+            <input name="calle" type="text" id="calle" class="form-control form-control-lg" placeholder="Calle"/>
         </div>
         <div class="form-outline mb-4">
-	        <label class="form-label" for="password">Fecha de Nacimiento</label>
-	        <input class="form-control" type="date" id="fechaNac" name="fechaNac">
+	        <label class="form-label" for="numero">Número</label>
+	        <input name="numero" class="form-control form-control-lg" type="number" id="numero" placeholder="Número">
+        </div>
+		<div class="form-outline mb-4">
+	        <label class="form-label" for="cp">CP</label>
+	        <input name="cp" class="form-control form-control-lg" type="text" pattern="[0-9]*" id="cp" placeholder="Código Postal">
+        </div>
+		<div class="form-outline mb-4">
+	        <label class="form-label" for="telefono">Teléfono</label>
+	        <input name="telefono" class="form-control form-control-lg" type="tel" id="telefono" placeholder="Teléfono">
         </div>
 	    <div class="form-outline mb-4"> 
 	        <label class="form-label" for="correo">Correo</label>
@@ -109,13 +117,15 @@
     <script src="js/bootstrap.bundle.min.js"></script>
     <script>
 	    document.getElementById("boton").addEventListener("click",()=>{
-		let nombre =document.getElementById("nombre");
-		let apellidos =document.getElementById("apellidos");
-		let fecNac =document.getElementById("fechaNac");
+		let nombre_empresa =document.getElementById("nombre_empresa");
+		let calle =document.getElementById("calle");
+		let num =document.getElementById("numero");
+        let cp = document.getElementById("cp");
+        let telefono = document.getElementById("telefono");
 		let email =document.getElementById("email");
 		let p1 = document.getElementById("password");
 		let p2 = document.getElementById("confirmar-password");
-		let condicion = !(nombre.value.length > 0 && apellidos.value.length > 0 && fecNac.value.length > 0 && email.value.length > 0 && p1.value.length > 0 && p2.value.length > 0);
+		let condicion = !(nombre_empresa.value.length > 0 && calle.value.length > 0 && num.value.length > 0 && cp.value.length > 0 && telefono.value.length > 0 && email.value.length > 0 && p1.value.length > 0 && p2.value.length > 0);
 		if(condicion){
 			window.alert("Hay campos vacios");
 		}else if(p1.value != p2.value){

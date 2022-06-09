@@ -52,11 +52,18 @@
                     <li class="nav-item active">
                         <a class="nav-link" href="index.php">Inicio</a>
                     </li>
+                    <li class="nav-item active">
+						<a class="nav-link" href="anuncios.php">Proveedores</a>
+					</li>
                     <li class="nav-item">
                         <a class="nav-link" href="login.php">Iniciar Sesión</a>
                     </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="registro.php">Registrarse</a>
+                    <li class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">Registrarse</a>
+                        <div class="dropdown-menu dropdown-menu-end">
+                            <a class="dropdown-item" href="registro.php">Registro Usuario</a>
+                            <a class="dropdown-item" href="registroProveedor.php">Registro Proveedor</a>
+                        </div>
                     </li>
                 </ul>
             </div>
